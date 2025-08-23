@@ -1,164 +1,126 @@
---[[
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
-local player = game.Players.LocalPlayer
-local mouse = player:GetMouse()
-local uis = game:GetService("UserInputService")
+-- Joke Script with 100 English jokes
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local player = Players.LocalPlayer
 
-local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
-screenGui.ResetOnSpawn = false
+-- 100 jokes
+local jokes = {
+    "Why don't programmers like nature? It has too many bugs.",
+    "Why do Java developers wear glasses? Because they don't see sharp.",
+    "How many programmers does it take to change a light bulb? None, that's a hardware problem.",
+    "Why was the computer cold? It forgot to close Windows.",
+    "Why did the coder go broke? Because he used up all his cache.",
+    "I told my computer I needed a break, and it said 'No problem, I'll go to sleep.'",
+    "Why did the smartphone go to school? To improve its reception.",
+    "Why do Python programmers live longer? Because they don't have to deal with pointers.",
+    "Why was the function sad? It didn't have any arguments.",
+    "What do computers eat for snacks? Microchips.",
+    "Why did the computer keep sneezing? It caught a virus.",
+    "Why did the developer go broke? He lost his domain in a bet.",
+    "Why was the JavaScript developer sad? Because he didn’t know how to ‘null’ his feelings.",
+    "Why was the computer tired when it got home? Too many tabs open.",
+    "Why did the gamer bring a ladder? To reach the next level.",
+    "Why was the keyboard sticky? Too much typing sugar.",
+    "Why did the AI cross the road? To optimize the chicken’s path.",
+    "What’s a computer’s favorite beat? An algo-rhythm.",
+    "Why don’t robots panic? They have nerves of steel.",
+    "Why was the server always calm? It could handle the load.",
+    "Why did the chip go to the hospital? It caught a byte.",
+    "Why did the IT guy go broke? He couldn’t find his balance sheet.",
+    "Why are computers so smart? They listen to their motherboards.",
+    "Why did the gamer stay at the restaurant? Unlimited servers.",
+    "What did the router say to the doctor? It hurts when IP.",
+    "Why was the computer screen embarrassed? It saw the mouse naked.",
+    "Why did the coder sleep under his desk? To work in his sleep mode.",
+    "Why was the website afraid? Too many cookies.",
+    "Why did the algorithm break up? It found a better match.",
+    "Why was the database admin lonely? All relationships were foreign.",
+    "Why do coders love dark mode? Because light attracts bugs.",
+    "Why don’t computers take their hats off? They have bad caps lock.",
+    "Why did the software engineer die in the shower? He read the shampoo instructions: Lather. Rinse. Repeat.",
+    "Why did the variable break up with the constant? It couldn’t change.",
+    "Why did the computer sit down? It needed to take a byte.",
+    "Why do hackers wear hoodies? To stay incognito.",
+    "Why was the binary so sad? It only had two options.",
+    "Why did the operating system break up with the hardware? There was no connection.",
+    "Why did the laptop go to therapy? Too much attachment.",
+    "Why did the spreadsheet go broke? It lost all its cells.",
+    "Why did the mouse get fired? It kept clicking around.",
+    "Why did the printer go to the doctor? It had paper jams.",
+    "Why did the server go broke? It couldn’t handle the bills.",
+    "Why did the hard drive go on vacation? It needed more space.",
+    "Why did the coder stay calm? He had great exception handling.",
+    "Why did the website go to school? To improve its domain knowledge.",
+    "Why did the network admin cross the road? To check the other subnet.",
+    "Why did the firewall blush? Someone tried to get past it.",
+    "Why did the keyboard file a complaint? Too much pressure.",
+    "Why did the laptop fail art class? It only knew how to draw windows.",
+    "Why did the function love math? It always had good arguments.",
+    "Why did the loop feel dizzy? It kept going around in circles.",
+    "Why did the array break up? It had too many elements.",
+    "Why did the CPU break up with the GPU? It couldn’t process the relationship.",
+    "Why did the coder always look cool? He had lots of cache.",
+    "Why did the file go to jail? It was corrupt.",
+    "Why did the RAM leave the CPU? It needed space.",
+    "Why did the website feel insecure? It had no SSL.",
+    "Why did the mobile app feel small? It was just a widget.",
+    "Why did the robot feel shy? It had low self-esteem.",
+    "Why did the script go to sleep? Too many bugs kept it awake.",
+    "Why did the cloud cry? It was full of data.",
+    "Why did the code smell bad? Too many functions decomposed.",
+    "Why did the PC blush? It caught the monitor staring.",
+    "Why did the WiFi feel lonely? It lost its connection.",
+    "Why did the coder carry a pencil? For debugging.",
+    "Why did the software get sick? Too many bugs in the system.",
+    "Why did the laptop feel heavy? Too many downloads.",
+    "Why did the code go bald? Too much stress testing.",
+    "Why did the dev get lost? He followed a wrong path.",
+    "Why did the smartphone feel proud? It had a good signal.",
+    "Why did the AI feel nervous? Too many people watching.",
+    "Why did the VR headset feel dizzy? Too many spins.",
+    "Why did the update take forever? It was stuck in a loop.",
+    "Why did the compiler feel angry? Too many errors thrown at it.",
+    "Why did the monitor feel bright? Too many highlights.",
+    "Why did the cloud service feel rich? It charged by the minute.",
+    "Why did the backup file feel safe? It had a copy of everything.",
+    "Why did the laptop feel tired? It was running all day.",
+    "Why did the app cry? It crashed again.",
+    "Why did the AI tell a joke? It wanted a byte of humor.",
+    "Why did the program feel lonely? It had no inputs.",
+    "Why did the console laugh? It got a funny output.",
+    "Why did the website crash? Too many visitors.",
+    "Why did the bug get promoted? It kept reproducing.",
+    "Why did the coder bring a ladder? To reach higher levels.",
+    "Why did the code cry? It had too many exceptions.",
+    "Why did the laptop love music? It had good speakers.",
+    "Why did the USB drive feel small? Too little capacity.",
+    "Why did the program stay calm? It was in a stable release.",
+    "Why did the dev love the ocean? It liked surfing the net.",
+    "Why did the mouse laugh? It saw the cheese program.",
+    "Why did the tablet feel flat? It had no dimensions.",
+    "Why did the screen look sad? No brightness in its life.",
+    "Why did the AI sleep early? Too many computations.",
+    "Why did the data scientist smile? His model finally fit.",
+    "Why did the file manager crash? Too many folders.",
+    "Why did the program freeze? It caught a cold.",
+    "Why did the motherboard yell? Too many circuits talking.",
+    "Why did the CPU overheat? Too much processing drama.",
+    "Why did the PC hide? It didn’t want to be debugged."
+}
 
-local frame = Instance.new("Frame", screenGui)
-frame.Size = UDim2.new(0, 250, 0, 200)
-frame.Position = UDim2.new(0.1, 0, 0.1, 0)
-frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-frame.BorderSizePixel = 0
-frame.Active = true
-frame.Draggable = true
-frame.Name = "KillAuraFrame"
+-- UI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = player:WaitForChild("PlayerGui")
 
-local title = Instance.new("TextLabel", frame)
-title.Text = "kill aura tools"
-title.Size = UDim2.new(1, 0, 0, 30)
-title.BackgroundTransparency = 1
-title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.Font = Enum.Font.SourceSansBold
-title.TextSize = 20
+local Button = Instance.new("TextButton")
+Button.Size = UDim2.new(0, 280, 0, 60)
+Button.Position = UDim2.new(0.5, -140, 0.5, -30)
+Button.Text = "Tell a Joke"
+Button.TextScaled = true
+Button.Parent = ScreenGui
 
-local reachBox = Instance.new("TextBox", frame)
-reachBox.PlaceholderText = "Reach"
-reachBox.Size = UDim2.new(1, -20, 0, 30)
-reachBox.Position = UDim2.new(0, 10, 0, 40)
-reachBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-reachBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-reachBox.BorderSizePixel = 0
-reachBox.Font = Enum.Font.SourceSans
-reachBox.TextSize = 18
-reachBox.Text = ""
-reachBox.ClearTextOnFocus = false
-
-local cpsBox = Instance.new("TextBox", frame)
-cpsBox.PlaceholderText = "Cps"
-cpsBox.Size = UDim2.new(1, -20, 0, 30)
-cpsBox.Position = UDim2.new(0, 10, 0, 80)
-cpsBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-cpsBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-cpsBox.BorderSizePixel = 0
-cpsBox.Font = Enum.Font.SourceSans
-cpsBox.TextSize = 18
-cpsBox.Text = ""
-cpsBox.ClearTextOnFocus = false
-
-local toggleFrame = Instance.new("Frame", frame)
-toggleFrame.Size = UDim2.new(0, 120, 0, 30)
-toggleFrame.Position = UDim2.new(0, 10, 0, 120)
-toggleFrame.BackgroundTransparency = 1
-
-local toggleButton = Instance.new("TextButton", toggleFrame)
-toggleButton.Size = UDim2.new(0, 30, 1, 0)
-toggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-toggleButton.BorderSizePixel = 0
-toggleButton.Text = ""
-toggleButton.AutoButtonColor = false
-toggleButton.Font = Enum.Font.SourceSans
-toggleButton.TextColor3 = Color3.new(1, 1, 1)
-toggleButton.TextSize = 18
-toggleButton.TextWrapped = true
-toggleButton.TextXAlignment = Enum.TextXAlignment.Center
-toggleButton.TextYAlignment = Enum.TextYAlignment.Center
-toggleButton.Text = ""
-
-local toggleLabel = Instance.new("TextLabel", toggleFrame)
-toggleLabel.Size = UDim2.new(1, -35, 1, 0)
-toggleLabel.Position = UDim2.new(0, 35, 0, 0)
-toggleLabel.BackgroundTransparency = 1
-toggleLabel.Text = "aimbot"
-toggleLabel.Font = Enum.Font.SourceSans
-toggleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-toggleLabel.TextSize = 18
-toggleLabel.TextXAlignment = Enum.TextXAlignment.Left
-
-local aimbotEnabled = false
-toggleButton.MouseButton1Click:Connect(function()
-    aimbotEnabled = not aimbotEnabled
-    toggleButton.Text = aimbotEnabled and "✅" or ""
+-- On click, print ONE random joke
+Button.MouseButton1Click:Connect(function()
+    local joke = jokes[math.random(1, #jokes)]
+    ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(joke, "All")
 end)
-
-local toolReach = 50
-local toolEquipped = false
-local clickLoop = nil
-
-local function extendHitbox(tool)
-    local handle = tool:FindFirstChild("Handle")
-    if handle and handle:IsA("BasePart") then
-        handle.Size = Vector3.new(toolReach, toolReach, toolReach)
-        handle.Massless = true
-        handle.CanCollide = false
-        handle.Transparency = 0.5
-    end
-end
-
-local function startClicking(cps)
-    if clickLoop then clickLoop:Disconnect() end
-    clickLoop = game:GetService("RunService").RenderStepped:Connect(function()
-        if toolEquipped then
-            local delayTime = 1 / math.clamp(cps, 1, 20)
-            mouse1press()
-            wait(delayTime)
-            mouse1release()
-        end
-    end)
-end
-
-game:GetService("RunService").RenderStepped:Connect(function()
-    if not aimbotEnabled then return end
-    local char = player.Character
-    if not char or not char:FindFirstChild("Head") then return end
-
-    local head = char.Head
-    local closest
-    local shortest = math.huge
-
-    for _, plr in ipairs(game.Players:GetPlayers()) do
-        if plr ~= player and plr.Character and plr.Character:FindFirstChild("Head") then
-            local dist = (plr.Character.Head.Position - head.Position).Magnitude
-            if dist < toolReach + 20 and dist < shortest then
-                closest = plr
-                shortest = dist
-            end
-        end
-    end
-
-    if closest then
-        local cam = workspace.CurrentCamera
-        cam.CFrame = CFrame.new(cam.CFrame.Position, closest.Character.Head.Position)
-    end
-end)
-
-player.CharacterAdded:Connect(function(char)
-    char.ChildAdded:Connect(function(child)
-        if child:IsA("Tool") then
-            toolEquipped = true
-            local reach = tonumber(reachBox.Text)
-            if reach then toolReach = reach end
-            extendHitbox(child)
-
-            local cps = tonumber(cpsBox.Text) or 10
-            startClicking(cps)
-        end
-    end)
-    char.ChildRemoved:Connect(function(child)
-        if child:IsA("Tool") then
-            toolEquipped = false
-            if clickLoop then clickLoop:Disconnect() end
-        end
-    end)
-end)
-
-if player.Character then
-    for _, tool in ipairs(player.Character:GetChildren()) do
-        if tool:IsA("Tool") then
-            extendHitbox(tool)
-        end
-    end
-end
